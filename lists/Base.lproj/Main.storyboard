@@ -33,20 +33,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mW1-VD-gz6">
-                            <size key="itemSize" width="72" height="64"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="mW1-VD-gz6">
+                            <size key="itemSize" width="158" height="169"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ListCell" id="UY0-Vz-IP5">
-                                <rect key="frame" x="0.0" y="0.0" width="72" height="64"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" reuseIdentifier="ListCell" id="oXy-AD-E8y" customClass="ListCollectionViewCell" customModule="lists" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="158" height="169"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="72" height="64"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="158" height="169"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dsN-Mb-XSl">
+                                            <rect key="frame" x="0.0" y="0.0" width="158" height="169"/>
+                                        </imageView>
+                                    </subviews>
                                 </view>
+                                <constraints>
+                                    <constraint firstItem="dsN-Mb-XSl" firstAttribute="centerY" secondItem="oXy-AD-E8y" secondAttribute="centerY" id="EwW-Oq-nFt"/>
+                                    <constraint firstItem="dsN-Mb-XSl" firstAttribute="centerX" secondItem="oXy-AD-E8y" secondAttribute="centerX" id="WDe-Wm-rpo"/>
+                                    <constraint firstItem="dsN-Mb-XSl" firstAttribute="height" secondItem="oXy-AD-E8y" secondAttribute="height" id="vXr-qH-ENF"/>
+                                    <constraint firstItem="dsN-Mb-XSl" firstAttribute="width" secondItem="oXy-AD-E8y" secondAttribute="width" id="y6I-xX-t7A"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="screenshot" destination="dsN-Mb-XSl" id="OnI-K8-JHL"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -58,14 +72,14 @@
                         <barButtonItem key="leftBarButtonItem" title="Settings" id="HVZ-cu-yeO"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="r2e-Wg-glh">
                             <connections>
-                                <segue destination="W1O-GY-xFX" kind="show" id="wcC-YI-bRG"/>
+                                <segue destination="W1O-GY-xFX" kind="show" identifier="segueToLTVC" id="wcC-YI-bRG"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fhK-2y-vMJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-188" y="123.68815592203899"/>
+            <point key="canvasLocation" x="-189.375" y="123.59154929577466"/>
         </scene>
         <!--List Table View Controller-->
         <scene sceneID="FTL-Pv-WTA">
@@ -80,7 +94,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6qi-KY-VL7" id="SvH-op-yeY">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jIp-T8-4Re">
@@ -100,7 +114,7 @@
                                 <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="19F-Sa-80P" id="b7V-XQ-hOw">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>

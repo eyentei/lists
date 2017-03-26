@@ -6,11 +6,11 @@
 //  Copyright © 2017 Мария Коровина. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-class Item {
+class Item: NSObject {
     
-    var text: String
+    var text: String?
     
     init(text: String) {
         self.text = text

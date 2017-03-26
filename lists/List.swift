@@ -6,15 +6,17 @@
 //  Copyright © 2017 Мария Коровина. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-class List {
-    var title: String?
-    var items: [Item]
+class List: NSObject {
+    var title: String!
+    var items: [Item]!
+    var screenshot: URL!
     
-    init(title:String, items:[Item]) {
+    init(title:String, items:[Item], screenshot:URL) {
         self.title = title
         self.items = items
+        self.screenshot = screenshot
     }
     
 }

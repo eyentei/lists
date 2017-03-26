@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TextTableViewCell: UITableViewCell,UITextFieldDelegate {
+class TextTableViewCell: UITableViewCell, UITextFieldDelegate {
 
     @IBOutlet weak var textField: UITextField!
    
@@ -16,7 +16,6 @@ class TextTableViewCell: UITableViewCell,UITextFieldDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         textField.delegate = self
-        // Initialization code
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -27,8 +26,6 @@ class TextTableViewCell: UITableViewCell,UITextFieldDelegate {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

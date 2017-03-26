@@ -16,6 +16,11 @@ class ListTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if (list != nil) {
+            print("ok")
+            listTitle = (list?.title)!
+            listItems = (list?.items)!
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,7 +45,6 @@ class ListTableViewController: UITableViewController {
             cell.backgroundColor = UIColor.gray
             cell.textField.addTarget(self, action: #selector(self.handleTextFieldEditing(_:)), for: .editingDidEnd)
             cell.textField.tag = indexPath.row
-
             return cell
         case listItems.count + 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PlusCell", for: indexPath)
@@ -49,8 +53,8 @@ class ListTableViewController: UITableViewController {
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath) as! TextTableViewCell
-            cell.textField.addTarget(self, action: #selector(self.handleTextFieldEditing(_:)), for: .editingDidEnd)
             cell.textField.text = listItems[indexPath.row - 1].text
+            cell.textField.addTarget(self, action: #selector(self.handleTextFieldEditing(_:)), for: .editingDidEnd)
             cell.textField.tag = indexPath.row
             return cell
 
@@ -102,13 +106,17 @@ class ListTableViewController: UITableViewController {
     
     /*func fetchAllInListItem() -> List {
         var listItems = [Item]()
-        item.app..
-        let titleString = self.tableView.cellForRow(at:IndexPath(row: 0, section:0)) as!
-        let list = List(title: titleString, listItems: listItems)
+        list = List(title: listTitle, listItems: listItems)
     }*/
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
     
     @IBAction func doneButtonClicked(_ sender: UIBarButtonItem) {
-       // var list = List(title: self.index, listItems: listItems)
+        list = List(title: listTitle, items: listItems, screenshot: takeScreenshot())
+        delegate?.addList(list)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -116,16 +124,23 @@ class ListTableViewController: UITableViewController {
         self.navigationController?.popViewController(animated: true)
     }
 
+    var delegate: ListTableViewControllerDelegate?
+    
+    func takeScreenshot() -> URL {
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, UIScreen.main.scale)
+        view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        let image = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        let data = UIImagePNGRepresentation(image)
+        let filename = getDocumentsDirectory().appendingPathComponent("\(Date()).png")
+        try? data?.write(to: filename)
+        return filename
     }
-    */
-
 }
+protocol ListTableViewControllerDelegate: class {
+    func addList(_ list: List?)
+}
+
+
