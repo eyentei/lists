@@ -7,22 +7,29 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ListTableViewController: UITableViewController {
-
-    var listTitle = "Title"
-    var listItems: [Item] = []
-    var list: List?
+    
+    var isEdited = false
+    var toDoList: ToDoList = ToDoList()
+    var realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if (list != nil) {
-            print("ok")
-            listTitle = (list?.title)!
-            listItems = (list?.items)!
+        
+        if (!isEdited) {
+            try! realm.write {
+                realm.add(toDoList)
+            }
         }
     }
-
+    override func viewWillDisappear(_ animated: Bool) {
+        try! realm.write {
+            toDoList.screenshot = takeScreenshot()
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -32,7 +39,7 @@ class ListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listItems.count + 2
+        return toDoList.entriesArray.count + 2
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -40,107 +47,73 @@ class ListTableViewController: UITableViewController {
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath) as! TextTableViewCell
-            cell.textField.text = listTitle
+            cell.textField.text = toDoList.title
             cell.textField.textAlignment = .center
             cell.backgroundColor = UIColor.gray
             cell.textField.addTarget(self, action: #selector(self.handleTextFieldEditing(_:)), for: .editingDidEnd)
             cell.textField.tag = indexPath.row
             return cell
-        case listItems.count + 1:
+        case toDoList.entriesArray.count + 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PlusCell", for: indexPath)
             cell.textLabel?.text = "+"
             cell.textLabel?.textAlignment = .center
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath) as! TextTableViewCell
-            cell.textField.text = listItems[indexPath.row - 1].text
+            cell.textField.text = toDoList.entriesArray[indexPath.row - 1].text
             cell.textField.addTarget(self, action: #selector(self.handleTextFieldEditing(_:)), for: .editingDidEnd)
             cell.textField.tag = indexPath.row
             return cell
-
         }
-       
     }
     
     func handleTextFieldEditing(_ sender: UITextField) {
         if (sender.tag == 0) {
-            listTitle = sender.text!
+            try! realm.write {
+                toDoList.title = sender.text!
+            }
         } else {
-            listItems[sender.tag - 1].text = sender.text!
+            try! realm.write {
+                toDoList.entriesArray[sender.tag - 1].text = sender.text!
+            }
         }
     }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if (indexPath.row == listItems.count + 1) {
+        if (indexPath.row == toDoList.entriesArray.count + 1) {
             var itemTextField: UITextField?
             let alert = UIAlertController(title: "", message: "Add a new task", preferredStyle: .alert)
             alert.addTextField { (textField: UITextField!) -> Void in
                 itemTextField = textField
             }
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (action) in
-                self.listItems.append(Item(text: (itemTextField?.text)!))
+                try! self.realm.write {
+                    self.toDoList.entriesArray.append(Entry(value: ["text": itemTextField?.text]))
+                }
                 tableView.reloadData()
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
             
             self.present(alert, animated: true, completion: nil)
-            
-            
         }
     }
     
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return (indexPath.row != 0 && indexPath.row != listItems.count + 1)
+        return (indexPath.row != 0 && indexPath.row != toDoList.entriesArray.count + 1)
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
             if (editingStyle == .delete) {
-                listItems.remove(at: indexPath.row - 1)
+                try! realm.write {
+                    toDoList.entriesArray.remove(at: indexPath.row - 1)
+                }
                 tableView.reloadData()
             }
-        
     }
+   
     
-    
-    /*func fetchAllInListItem() -> List {
-        var listItems = [Item]()
-        list = List(title: listTitle, listItems: listItems)
-    }*/
-    func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentsDirectory = paths[0]
-        return documentsDirectory
-    }
-    
-    @IBAction func doneButtonClicked(_ sender: UIBarButtonItem) {
-        list = List(title: listTitle, items: listItems, screenshot: takeScreenshot())
-        delegate?.addList(list)
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func cancelButtonClicked(_ sender: UIBarButtonItem) {
-        self.navigationController?.popViewController(animated: true)
-    }
-
-    var delegate: ListTableViewControllerDelegate?
-    
-    func takeScreenshot() -> URL {
-        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, UIScreen.main.scale)
-        view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
-
-        let image = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        
-        let data = UIImagePNGRepresentation(image)
-        let filename = getDocumentsDirectory().appendingPathComponent("\(Date()).png")
-        try? data?.write(to: filename)
-        return filename
-    }
 }
-protocol ListTableViewControllerDelegate: class {
-    func addList(_ list: List?)
-}
-
 

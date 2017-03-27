@@ -124,18 +124,7 @@
                             <outlet property="delegate" destination="W1O-GY-xFX" id="okY-iQ-y6g"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="5vQ-Vo-NLL">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Ywk-EO-8TJ">
-                            <connections>
-                                <action selector="cancelButtonClicked:" destination="W1O-GY-xFX" id="Zr0-6A-Flm"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="nUh-C1-aVq">
-                            <connections>
-                                <action selector="doneButtonClicked:" destination="W1O-GY-xFX" id="RcL-aZ-bG8"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="5vQ-Vo-NLL"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oNZ-Oo-sHJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -216,7 +205,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="pEw-Bh-nht" id="HjI-G8-bSk"/>
                         <outlet property="passwordTextField" destination="GlD-z6-nYF" id="20k-aa-yPx"/>
-                        <segue destination="z4X-AD-4pE" kind="show" identifier="moveToMain" id="u0L-He-HSm"/>
+                        <segue destination="z4X-AD-4pE" kind="show" identifier="segueToMain" id="u0L-He-HSm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wQ7-M7-ZPj" userLabel="First Responder" sceneMemberID="firstResponder"/>

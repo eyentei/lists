@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if defaults.bool(forKey: "hasLoggedInOrSkipped") {
          self.window?
          .rootViewController!
-         .performSegue(withIdentifier: "moveToMain", sender: nil)
+         .performSegue(withIdentifier: "segueToMain", sender: nil)
         }
         
         return true

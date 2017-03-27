@@ -1,5 +1,5 @@
 //
-//  Item.swift
+//  Entry.swift
 //  lists
 //
 //  Created by Мария Коровина on 09.03.17.
@@ -7,13 +7,10 @@
 //
 
 import UIKit
+import RealmSwift
 
-class Item: NSObject {
+class Entry: Object {
     
-    var text: String?
-    
-    init(text: String) {
-        self.text = text
-    }
+    dynamic var text = ""
     
 }
