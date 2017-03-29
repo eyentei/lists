@@ -13,6 +13,6 @@ class ToDoList: Object {
     
     dynamic var title = "Title"
     dynamic var screenshot = ""
-    var entriesArray: List<Entry> = List<Entry>()
+    var entries: List<Entry> = List<Entry>()
     
 }

@@ -39,7 +39,7 @@ class ListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return toDoList.entriesArray.count + 2
+        return toDoList.entries.count + 2
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,14 +53,14 @@ class ListTableViewController: UITableViewController {
             cell.textField.addTarget(self, action: #selector(self.handleTextFieldEditing(_:)), for: .editingDidEnd)
             cell.textField.tag = indexPath.row
             return cell
-        case toDoList.entriesArray.count + 1:
+        case toDoList.entries.count + 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PlusCell", for: indexPath)
             cell.textLabel?.text = "+"
             cell.textLabel?.textAlignment = .center
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath) as! TextTableViewCell
-            cell.textField.text = toDoList.entriesArray[indexPath.row - 1].text
+            cell.textField.text = toDoList.entries[indexPath.row - 1].text
             cell.textField.addTarget(self, action: #selector(self.handleTextFieldEditing(_:)), for: .editingDidEnd)
             cell.textField.tag = indexPath.row
             return cell
@@ -74,14 +74,14 @@ class ListTableViewController: UITableViewController {
             }
         } else {
             try! realm.write {
-                toDoList.entriesArray[sender.tag - 1].text = sender.text!
+                toDoList.entries[sender.tag - 1].text = sender.text!
             }
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if (indexPath.row == toDoList.entriesArray.count + 1) {
+        if (indexPath.row == toDoList.entries.count + 1) {
             var itemTextField: UITextField?
             let alert = UIAlertController(title: "", message: "Add a new task", preferredStyle: .alert)
             alert.addTextField { (textField: UITextField!) -> Void in
@@ -89,7 +89,7 @@ class ListTableViewController: UITableViewController {
             }
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (action) in
                 try! self.realm.write {
-                    self.toDoList.entriesArray.append(Entry(value: ["text": itemTextField?.text]))
+                    self.toDoList.entries.append(Entry(value: ["text": itemTextField?.text]))
                 }
                 tableView.reloadData()
             }))
@@ -101,14 +101,14 @@ class ListTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return (indexPath.row != 0 && indexPath.row != toDoList.entriesArray.count + 1)
+        return (indexPath.row != 0 && indexPath.row != toDoList.entries.count + 1)
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
             if (editingStyle == .delete) {
                 try! realm.write {
-                    toDoList.entriesArray.remove(at: indexPath.row - 1)
+                    toDoList.entries.remove(at: indexPath.row - 1)
                 }
                 tableView.reloadData()
             }

@@ -9,32 +9,76 @@
 import UIKit
 import RealmSwift
 
-class WelcomeViewController: UIViewController {
+class WelcomeViewController: UIViewController, UITextFieldDelegate {
 
+    var realm = try! Realm()
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var errorLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // print(Realm.Configuration.defaultConfiguration.fileURL)
+        errorLabel.text = ""
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        print(Realm.Configuration.defaultConfiguration.fileURL)
     }
     
-    func check() {
-        let email = emailTextField.text!
-        let password = passwordTextField.text!
-        
-        if (email.isEmpty || password.isEmpty) {
-            
-        } else {
-            //UserDefaults.standard.set(true, forKey: "hasLoggedInOrSkipped")
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.backgroundColor = UIColor.clear
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if (textField.text?.isEmpty)! {
+            textField.backgroundColor = UIColor(hue: 0, saturation: 0.25, brightness: 1, alpha: 1.0)
         }
     }
     
-    @IBAction func loginButtonClicked(_ sender: UIButton) {
-        check()
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return !(string == " ")
+    }
+    
+    @IBAction func loginButtonClicked(_ sender: UIButton) {
+        let email = emailTextField.text
+        let password = passwordTextField.text
+        if (!((email?.isEmpty)!) && !((password?.isEmpty)!)) {
+            let user = realm.object(ofType: User.self, forPrimaryKey: email)
+            if (user != nil && user?.password == password) {
+                UserDefaults.standard.set(true, forKey: "hasLoggedInOrSkipped")
+                self.performSegue(withIdentifier: "segueToMain", sender: nil)
+            } else {
+                errorLabel.text = "Wrong login or password"
+            }
+        } else {
+            errorLabel.text = "Please fill in both fields"
+        }
+    }
+    
     @IBAction func registerButtonClicked(_ sender: UIButton) {
-        check()
+        let email = emailTextField.text
+        let password = passwordTextField.text
+        
+        if (!((email?.isEmpty)!) && !((password?.isEmpty)!)) {
+            try! realm.write {
+                if (realm.object(ofType: User.self, forPrimaryKey: email) == nil) {
+                    realm.create(User.self, value: ["email": email, "password": password])
+                    UserDefaults.standard.set(true, forKey: "hasLoggedInOrSkipped")
+                    self.performSegue(withIdentifier: "segueToMain", sender: nil)
+                } else {
+                    errorLabel.text = "This email is already in use"
+                }
+            }
+        } else {
+            errorLabel.text = "Please fill in both fields"
+        }
     }
     @IBAction func skipButtonClicked(_ sender: UIButton) {
         
