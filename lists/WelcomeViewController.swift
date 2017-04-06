@@ -25,11 +25,15 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        errorLabel.text = ""
         textField.backgroundColor = UIColor.clear
     }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if (textField.text?.isEmpty)! {
+        guard let text = textField.text, !text.isEmpty else {
+            errorLabel.text = "Please fill in both fields"
             textField.backgroundColor = UIColor(hue: 0, saturation: 0.25, brightness: 1, alpha: 1.0)
+            return
         }
     }
     
@@ -47,39 +51,38 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func loginButtonClicked(_ sender: UIButton) {
-        let email = emailTextField.text
-        let password = passwordTextField.text
-        if (!((email?.isEmpty)!) && !((password?.isEmpty)!)) {
-            let user = realm.object(ofType: User.self, forPrimaryKey: email)
-            if (user != nil && user?.password == password) {
-                UserDefaults.standard.set(true, forKey: "hasLoggedInOrSkipped")
-                self.performSegue(withIdentifier: "segueToMain", sender: nil)
-            } else {
-                errorLabel.text = "Wrong login or password"
-            }
-        } else {
+        
+        guard let email = emailTextField.text, let password = passwordTextField.text, !email.isEmpty, !password.isEmpty else {
             errorLabel.text = "Please fill in both fields"
+            return
         }
+        
+        guard let user = realm.object(ofType: User.self, forPrimaryKey: email), user.password == password else {
+            errorLabel.text = "Wrong login or password"
+            return
+        }
+        UserDefaults.standard.set(true, forKey: "hasLoggedInOrSkipped")
+        self.performSegue(withIdentifier: "segueToMain", sender: nil)
     }
     
     @IBAction func registerButtonClicked(_ sender: UIButton) {
-        let email = emailTextField.text
-        let password = passwordTextField.text
         
-        if (!((email?.isEmpty)!) && !((password?.isEmpty)!)) {
-            try! realm.write {
-                if (realm.object(ofType: User.self, forPrimaryKey: email) == nil) {
-                    realm.create(User.self, value: ["email": email, "password": password])
-                    UserDefaults.standard.set(true, forKey: "hasLoggedInOrSkipped")
-                    self.performSegue(withIdentifier: "segueToMain", sender: nil)
-                } else {
-                    errorLabel.text = "This email is already in use"
-                }
-            }
-        } else {
+        guard let email = emailTextField.text, let password = passwordTextField.text, !email.isEmpty, !password.isEmpty else {
             errorLabel.text = "Please fill in both fields"
+            return
+        }
+        
+        try! realm.write {
+            guard (realm.object(ofType: User.self, forPrimaryKey: email) == nil) else {
+                errorLabel.text = "This email is already in use"
+                return
+            }
+            realm.create(User.self, value: ["email": email, "password": password])
+            UserDefaults.standard.set(true, forKey: "hasLoggedInOrSkipped")
+            self.performSegue(withIdentifier: "segueToMain", sender: nil)
         }
     }
+    
     @IBAction func skipButtonClicked(_ sender: UIButton) {
         
         UserDefaults.standard.set(true, forKey: "hasLoggedInOrSkipped")
@@ -89,7 +92,6 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 }
