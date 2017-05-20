@@ -11,8 +11,8 @@ import RealmSwift
 
 class ToDoList: Object {
     
-    dynamic var title = "Title"
-    dynamic var screenshot = ""
+    dynamic var title = "Untitled"
+    dynamic var picture = ""
     var entries: List<Entry> = List<Entry>()
     
 }

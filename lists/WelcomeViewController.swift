@@ -11,17 +11,18 @@ import RealmSwift
 
 class WelcomeViewController: UIViewController, UITextFieldDelegate {
 
-    var realm = try! Realm()
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
+    var realm: Realm!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         errorLabel.text = ""
         emailTextField.delegate = self
         passwordTextField.delegate = self
-        print(Realm.Configuration.defaultConfiguration.fileURL)
+        //print(Realm.Configuration.defaultConfiguration.fileURL)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -52,6 +53,7 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func loginButtonClicked(_ sender: UIButton) {
         
+        realm = try! Realm()
         guard let email = emailTextField.text, let password = passwordTextField.text, !email.isEmpty, !password.isEmpty else {
             errorLabel.text = "Please fill in both fields"
             return
@@ -67,6 +69,7 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func registerButtonClicked(_ sender: UIButton) {
         
+        realm = try! Realm()
         guard let email = emailTextField.text, let password = passwordTextField.text, !email.isEmpty, !password.isEmpty else {
             errorLabel.text = "Please fill in both fields"
             return
@@ -77,7 +80,10 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
                 errorLabel.text = "This email is already in use"
                 return
             }
-            realm.create(User.self, value: ["email": email, "password": password])
+            let newUser = User()
+            newUser.email = email
+            newUser.password = password
+            realm.add(newUser)
             UserDefaults.standard.set(true, forKey: "hasLoggedInOrSkipped")
             self.performSegue(withIdentifier: "segueToMain", sender: nil)
         }

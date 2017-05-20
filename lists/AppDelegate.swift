@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var realm: Realm!
     
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         let defaults = UserDefaults.standard
@@ -24,9 +25,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          .performSegue(withIdentifier: "segueToMain", sender: nil)
         }
         
+        setupRealm()
+
         return true
     }
 
+    func setupRealm() {
+        SyncUser.logIn(with: .usernamePassword(username: username, password: password, register: false), server: authServerURL) { user, error in
+            guard let user = user else {
+                fatalError(String(describing: error))
+            }
+            let configuration = Realm.Configuration(syncConfiguration: SyncConfiguration(user: user, realmURL: realmURL), schemaVersion: 1, migrationBlock: { migration, oldSchemaVersion in })
+            
+            Realm.Configuration.defaultConfiguration = configuration
+            
+            DispatchQueue.main.sync {
+                self.realm = try! Realm()
+            }
+        }
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
