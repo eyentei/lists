@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class ListTableViewController: UITableViewController {
+class ListTableViewController: UITableViewController, UITextFieldDelegate {
     
     var toDoList: ToDoList = ToDoList()
     var realm: Realm!
@@ -17,23 +17,39 @@ class ListTableViewController: UITableViewController {
     @IBOutlet weak var listTitle: UITextField!
     
     override func viewWillAppear(_ animated: Bool) {
-        setupRealm()
+        initialize()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        listTitle.delegate = self
         hideKeyboardOnTap()
         listTitle.tag = 0
         listTitle.addTarget(self, action: #selector(self.handleTextFieldEditing(_:)), for: .editingDidEnd)
     }
+    override func viewDidAppear(_ animated: Bool) {
     
-    func setupRealm() {
-        self.realm = try! Realm()
-        try! self.realm.write {
-            self.realm.add(self.toDoList)
-            self.listTitle.text = self.toDoList.title
+    }
+    
+    func initialize() {
+        realm = try! Realm()
+        try! realm.write {
+            if user != nil {
+                if toDoList.picture == "" {
+                    toDoList.title = listTitle.text! == "" ? "Untitled" : listTitle.text!
+                    user!.lists.append(toDoList)
+                } else {
+                    listTitle.text = self.toDoList.title
+                }
+            } else {
+                if toDoList.picture == "" {
+                    toDoList.title = listTitle.text! == "" ? "Untitled" : listTitle.text!
+                }
+                realm.add(toDoList)
+            }
+            
             if icon != nil {
-                self.toDoList.picture = self.icon!
+                toDoList.picture = self.icon!
             }
         }
     }
@@ -88,6 +104,7 @@ class ListTableViewController: UITableViewController {
             let alert = UIAlertController(title: "", message: "Add a new task", preferredStyle: .alert)
             alert.addTextField { (textField: UITextField!) -> Void in
                 itemTextField = textField
+                itemTextField?.delegate = self
             }
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (action) in
                 try! self.realm.write {
@@ -107,11 +124,21 @@ class ListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
+            realm = try! Realm()
             try! realm.write {
                 toDoList.entries.remove(at: indexPath.row)
             }
             tableView.reloadData()
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }
 

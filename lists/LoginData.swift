@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 
+var user: User?
 let username = "mailnya@yandex.ru"
 let password = "qwe123"
 let ip = "188.226.135.29:9080"

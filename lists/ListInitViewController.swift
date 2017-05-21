@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListInitViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class ListInitViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate {
 
     var iconsData = ["list", "shoppingcart", "suitcase", "giftbox", "point", "book", "heart", "star"]
     var counter: Int = 0
@@ -18,10 +18,12 @@ class ListInitViewController: UIViewController, UICollectionViewDataSource, UICo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        listTitle.delegate = self
         selectedIcon = iconsData[0]
         iconsCollection.delegate = self
         iconsCollection.dataSource = self
         iconsCollection.allowsMultipleSelection = false
+        hideKeyboardOnTap()
     }
     override func viewDidAppear(_ animated: Bool) {
         let cell = iconsCollection.cellForItem(at: IndexPath(item: 0, section: 0)) as! ListIconCollectionViewCell
@@ -67,7 +69,16 @@ class ListInitViewController: UIViewController, UICollectionViewDataSource, UICo
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let LTVC = segue.destination as? ListTableViewController {
             LTVC.icon = selectedIcon
-            LTVC.listTitle.text = listTitle.text == "" ? "Untitled" : listTitle.text
+            LTVC.listTitle.text = listTitle.text!
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }

@@ -13,36 +13,18 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var realm: Realm!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         let defaults = UserDefaults.standard
         
-        if defaults.bool(forKey: "hasLoggedInOrSkipped") {
+        if defaults.bool(forKey: "isLoggedIn") {
          self.window?
          .rootViewController!
          .performSegue(withIdentifier: "segueToMain", sender: nil)
         }
-        
-        setupRealm()
-
+    
         return true
-    }
-
-    func setupRealm() {
-        SyncUser.logIn(with: .usernamePassword(username: username, password: password, register: false), server: authServerURL) { user, error in
-            guard let user = user else {
-                fatalError(String(describing: error))
-            }
-            let configuration = Realm.Configuration(syncConfiguration: SyncConfiguration(user: user, realmURL: realmURL), schemaVersion: 1, migrationBlock: { migration, oldSchemaVersion in })
-            
-            Realm.Configuration.defaultConfiguration = configuration
-            
-            DispatchQueue.main.sync {
-                self.realm = try! Realm()
-            }
-        }
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
