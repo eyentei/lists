@@ -93,7 +93,7 @@
         <scene sceneID="FTL-Pv-WTA">
             <objects>
                 <tableViewController id="W1O-GY-xFX" customClass="ListTableViewController" customModule="lists" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Gzf-cl-aFm">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Gzf-cl-aFm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -110,7 +110,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                            <textInputTraits key="textInputTraits"/>
                                         </textField>
                                     </subviews>
                                 </tableViewCellContentView>
@@ -148,7 +148,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                            <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                            <textInputTraits key="textInputTraits"/>
                         </textField>
                     </navigationItem>
                     <connections>
@@ -176,7 +176,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits"/>
                             </textField>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="euV-JQ-ZdY">
                                 <rect key="frame" x="40" y="273" width="240" height="128"/>
@@ -259,7 +259,7 @@
                                 <rect key="frame" x="81" y="239" width="158" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UuS-aO-9rg">
                                 <rect key="frame" x="81" y="355" width="48" height="30"/>

@@ -14,7 +14,7 @@ class ListsTableViewController: UITableViewController {
     var realm: Realm!
     var lists: List<ToDoList>?
     var results: Results<ToDoList>?
-    
+
     override func viewDidAppear(_ animated: Bool) {
         if user != nil {
             lists = user!.lists
@@ -29,7 +29,7 @@ class ListsTableViewController: UITableViewController {
         results = realm.objects(ToDoList.self)
         tableView.reloadData()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -45,13 +45,13 @@ class ListsTableViewController: UITableViewController {
             return results != nil ? results!.count : 0
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "listInfoCell", for: indexPath) as! ListInfoTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "listInfoCell",
+                                                 for: indexPath) as! ListInfoTableViewCell
         realm = try! Realm()
         if user != nil {
-            guard let lists = lists else
-            {
+            guard let lists = lists else {
                 return cell
             }
             cell.listName.text = lists[indexPath.row].title
@@ -60,8 +60,7 @@ class ListsTableViewController: UITableViewController {
             cell.listIcon.image = UIImage(named: lists[indexPath.row].picture + ".png")
             return cell
         } else {
-            guard let results = results else
-            {
+            guard let results = results else {
                 return cell
             }
             cell.listName.text = results[indexPath.row].title
@@ -70,11 +69,12 @@ class ListsTableViewController: UITableViewController {
             cell.listIcon.image = UIImage(named: results[indexPath.row].picture + ".png")
             return cell
         }
-        
+
     }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if (editingStyle == .delete) {
+
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle,
+                            forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
             realm = try! Realm()
             try! realm.write {
                 if user != nil {
@@ -88,15 +88,15 @@ class ListsTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "segueToList", sender: indexPath.row)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "segueToList") {
+        if segue.identifier == "segueToList" {
             if let LTVC = segue.destination as? ListTableViewController {
-                if (sender is Int) {
+                if sender is Int {
                     if user != nil {
                         LTVC.toDoList = lists![sender as! Int]
                     } else {

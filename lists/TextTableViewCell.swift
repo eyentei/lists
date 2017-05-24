@@ -11,8 +11,7 @@ import UIKit
 class TextTableViewCell: UITableViewCell, UITextFieldDelegate {
 
     @IBOutlet weak var textField: UITextField!
-   
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         textField.delegate = self
@@ -22,10 +21,8 @@ class TextTableViewCell: UITableViewCell, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-
 }

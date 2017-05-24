@@ -8,14 +8,15 @@
 
 import UIKit
 
-class ListInitViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate {
+class ListInitViewController: UIViewController, UICollectionViewDataSource,
+UICollectionViewDelegate, UITextFieldDelegate {
 
     var iconsData = ["list", "shoppingcart", "suitcase", "giftbox", "point", "book", "heart", "star"]
     var counter: Int = 0
     var selectedIcon: String!
     @IBOutlet weak var listTitle: UITextField!
     @IBOutlet weak var iconsCollection: UICollectionView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         listTitle.delegate = self
@@ -23,7 +24,6 @@ class ListInitViewController: UIViewController, UICollectionViewDataSource, UICo
         iconsCollection.delegate = self
         iconsCollection.dataSource = self
         iconsCollection.allowsMultipleSelection = false
-        hideKeyboardOnTap()
     }
     override func viewDidAppear(_ animated: Bool) {
         let cell = iconsCollection.cellForItem(at: IndexPath(item: 0, section: 0)) as! ListIconCollectionViewCell
@@ -35,9 +35,11 @@ class ListInitViewController: UIViewController, UICollectionViewDataSource, UICo
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "icon", for: indexPath) as! ListIconCollectionViewCell
+
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "icon",
+                                                      for: indexPath) as! ListIconCollectionViewCell
         let currentIcon = iconsData[counter]
         counter += 1
         if counter >= iconsData.count {
@@ -46,7 +48,7 @@ class ListInitViewController: UIViewController, UICollectionViewDataSource, UICo
         cell.listIcon.image = UIImage(named: currentIcon)
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return iconsData.count
     }
@@ -60,24 +62,24 @@ class ListInitViewController: UIViewController, UICollectionViewDataSource, UICo
         cell.layer.borderColor = UIColor.blue.cgColor
         selectedIcon = iconsData[indexPath.item]
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! ListIconCollectionViewCell
         cell.layer.borderWidth = 0
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let LTVC = segue.destination as? ListTableViewController {
             LTVC.icon = selectedIcon
             LTVC.listTitle.text = listTitle.text!
         }
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }

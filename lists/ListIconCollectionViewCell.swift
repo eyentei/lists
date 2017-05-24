@@ -9,7 +9,6 @@
 import UIKit
 
 class ListIconCollectionViewCell: UICollectionViewCell {
-    
+
     @IBOutlet weak var listIcon: UIImageView!
-    
 }

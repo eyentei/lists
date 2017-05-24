@@ -10,12 +10,11 @@ import UIKit
 import RealmSwift
 
 class User: Object {
-    
+
     dynamic var email = ""
     dynamic var password = ""
     var lists: List<ToDoList> = List<ToDoList>()
     override class func primaryKey() -> String? {
         return "email"
     }
-    
 }

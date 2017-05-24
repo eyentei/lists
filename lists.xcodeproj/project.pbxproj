@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		AA079B9F1ECCBA97004DB2DC /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA079B9E1ECCBA97004DB2DC /* LoginData.swift */; };
 		AA1C133C1ECFA68400042B56 /* ListInitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C133B1ECFA68400042B56 /* ListInitViewController.swift */; };
-		AA21A1921ED0D711007C735F /* UIViewController+hideKeyboardOnTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA21A1911ED0D710007C735F /* UIViewController+hideKeyboardOnTap.swift */; };
 		AA21A1941ED0E6A2007C735F /* ListIconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA21A1931ED0E6A2007C735F /* ListIconCollectionViewCell.swift */; };
 		AA4D4F271E5F54760021EA2B /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4D4F261E5F54760021EA2B /* WelcomeViewController.swift */; };
 		AA4D4F351E7088F70021EA2B /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4D4F341E7088F60021EA2B /* Realm.framework */; };
@@ -26,7 +25,6 @@
 		AAB4A0731E4F49A300D38B90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAB4A0711E4F49A300D38B90 /* Main.storyboard */; };
 		AAB4A0751E4F49A300D38B90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAB4A0741E4F49A300D38B90 /* Assets.xcassets */; };
 		AAB4A0781E4F49A300D38B90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAB4A0761E4F49A300D38B90 /* LaunchScreen.storyboard */; };
-		AACE01411ED1AA7F009E1D23 /* UIViewController+setupRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACE01401ED1AA7F009E1D23 /* UIViewController+setupRealm.swift */; };
 		AADD31551E8C6D13008CCDE8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADD31541E8C6D13008CCDE8 /* User.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +46,6 @@
 /* Begin PBXFileReference section */
 		AA079B9E1ECCBA97004DB2DC /* LoginData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
 		AA1C133B1ECFA68400042B56 /* ListInitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListInitViewController.swift; sourceTree = "<group>"; };
-		AA21A1911ED0D710007C735F /* UIViewController+hideKeyboardOnTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+hideKeyboardOnTap.swift"; sourceTree = "<group>"; };
 		AA21A1931ED0E6A2007C735F /* ListIconCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListIconCollectionViewCell.swift; sourceTree = "<group>"; };
 		AA4D4F261E5F54760021EA2B /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		AA4D4F341E7088F60021EA2B /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
@@ -65,7 +62,6 @@
 		AAB4A0741E4F49A300D38B90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AAB4A0771E4F49A300D38B90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AAB4A0791E4F49A300D38B90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AACE01401ED1AA7F009E1D23 /* UIViewController+setupRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+setupRealm.swift"; sourceTree = "<group>"; };
 		AADD31541E8C6D13008CCDE8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,15 +78,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AA21A1901ED0D660007C735F /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				AA21A1911ED0D710007C735F /* UIViewController+hideKeyboardOnTap.swift */,
-				AACE01401ED1AA7F009E1D23 /* UIViewController+setupRealm.swift */,
-			);
-			name = Extensions;
-			sourceTree = "<group>";
-		};
 		AAB36AF61E89966E0018351F /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -144,7 +131,6 @@
 			isa = PBXGroup;
 			children = (
 				AAB4A06D1E4F49A300D38B90 /* AppDelegate.swift */,
-				AA21A1901ED0D660007C735F /* Extensions */,
 				AAB36AF91E8996890018351F /* Views */,
 				AAB36AF71E8996750018351F /* Controllers */,
 				AAB36AF61E89966E0018351F /* Models */,
@@ -238,12 +224,10 @@
 				AA4D4F3E1E70AA2E0021EA2B /* ListTableViewController.swift in Sources */,
 				AA74D2D91ECF376E008DF472 /* ListInfoTableViewCell.swift in Sources */,
 				AA079B9F1ECCBA97004DB2DC /* LoginData.swift in Sources */,
-				AACE01411ED1AA7F009E1D23 /* UIViewController+setupRealm.swift in Sources */,
 				AA4D4F421E70C26F0021EA2B /* Entry.swift in Sources */,
 				AA4D4F271E5F54760021EA2B /* WelcomeViewController.swift in Sources */,
 				AA1C133C1ECFA68400042B56 /* ListInitViewController.swift in Sources */,
 				AA74D2D71ECF3722008DF472 /* ListsTableViewController.swift in Sources */,
-				AA21A1921ED0D711007C735F /* UIViewController+hideKeyboardOnTap.swift in Sources */,
 				AA4D4F401E70BF570021EA2B /* ToDoList.swift in Sources */,
 				AADD31551E8C6D13008CCDE8 /* User.swift in Sources */,
 			);

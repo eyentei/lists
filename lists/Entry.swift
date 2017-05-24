@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 
 class Entry: Object {
-    
+
     dynamic var text = ""
-    
+
 }
