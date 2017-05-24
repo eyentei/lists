@@ -109,7 +109,8 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
             guard let user = user else {
                 fatalError(String(describing: error))
             }
-            let config = Realm.Configuration(syncConfiguration: SyncConfiguration(user: user, realmURL: realmURL))
+                        let config = Realm.Configuration(syncConfiguration: SyncConfiguration(user: user, realmURL: realmURL),
+                                                         schemaVersion: 1)
 
             Realm.Configuration.defaultConfiguration = config
 
