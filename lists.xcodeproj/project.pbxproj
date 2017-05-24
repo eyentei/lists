@@ -81,41 +81,44 @@
 		AAB36AF61E89966E0018351F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				AA4D4F3F1E70BF570021EA2B /* ToDoList.swift */,
 				AA4D4F411E70C26F0021EA2B /* Entry.swift */,
+				AA4D4F3F1E70BF570021EA2B /* ToDoList.swift */,
 				AADD31541E8C6D13008CCDE8 /* User.swift */,
 			);
 			name = Models;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		AAB36AF71E8996750018351F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				AA4D4F3D1E70AA2E0021EA2B /* ListTableViewController.swift */,
 				AA1C133B1ECFA68400042B56 /* ListInitViewController.swift */,
+				AA4D4F3D1E70AA2E0021EA2B /* ListTableViewController.swift */,
 				AA74D2D61ECF3722008DF472 /* ListsTableViewController.swift */,
 				AA4D4F261E5F54760021EA2B /* WelcomeViewController.swift */,
 			);
 			name = Controllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		AAB36AF91E8996890018351F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				AA4D4F491E71C7800021EA2B /* TextTableViewCell.swift */,
 				AA21A1931ED0E6A2007C735F /* ListIconCollectionViewCell.swift */,
 				AA74D2D81ECF376E008DF472 /* ListInfoTableViewCell.swift */,
+				AA4D4F491E71C7800021EA2B /* TextTableViewCell.swift */,
 			);
 			name = Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		AAB4A0611E4F49A200D38B90 = {
 			isa = PBXGroup;
 			children = (
-				AA4D4F381E7089110021EA2B /* RealmSwift.framework */,
-				AA4D4F341E7088F60021EA2B /* Realm.framework */,
-				AAB4A06C1E4F49A300D38B90 /* lists */,
 				AAB4A06B1E4F49A300D38B90 /* Products */,
+				AAB4A06C1E4F49A300D38B90 /* lists */,
+				AA4D4F341E7088F60021EA2B /* Realm.framework */,
+				AA4D4F381E7089110021EA2B /* RealmSwift.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -130,15 +133,15 @@
 		AAB4A06C1E4F49A300D38B90 /* lists */ = {
 			isa = PBXGroup;
 			children = (
-				AAB4A06D1E4F49A300D38B90 /* AppDelegate.swift */,
-				AAB36AF91E8996890018351F /* Views */,
 				AAB36AF71E8996750018351F /* Controllers */,
 				AAB36AF61E89966E0018351F /* Models */,
-				AAB4A0711E4F49A300D38B90 /* Main.storyboard */,
-				AA079B9E1ECCBA97004DB2DC /* LoginData.swift */,
+				AAB36AF91E8996890018351F /* Views */,
+				AAB4A06D1E4F49A300D38B90 /* AppDelegate.swift */,
 				AAB4A0741E4F49A300D38B90 /* Assets.xcassets */,
-				AAB4A0761E4F49A300D38B90 /* LaunchScreen.storyboard */,
 				AAB4A0791E4F49A300D38B90 /* Info.plist */,
+				AAB4A0761E4F49A300D38B90 /* LaunchScreen.storyboard */,
+				AA079B9E1ECCBA97004DB2DC /* LoginData.swift */,
+				AAB4A0711E4F49A300D38B90 /* Main.storyboard */,
 			);
 			path = lists;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				AAB4A0721E4F49A300D38B90 /* Base */,
 			);
 			name = Main.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 		AAB4A0761E4F49A300D38B90 /* LaunchScreen.storyboard */ = {
@@ -250,6 +254,7 @@
 				AAB4A0771E4F49A300D38B90 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
