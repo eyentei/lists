@@ -11,12 +11,14 @@ import RealmSwift
 
 class SettingsViewController: UIViewController, UITextFieldDelegate {
     
+    // Everything here is similar to the welcome view controller (keyboard hiding methods, checking inputs, 
+    // establishing connections, showing errors, etc.
     
     @IBOutlet weak var oldPasswordTextField: UITextField!
     @IBOutlet weak var newPasswordTextField: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
     var realm: Realm!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         errorLabel.text = ""

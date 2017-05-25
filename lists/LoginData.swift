@@ -9,7 +9,9 @@
 import Foundation
 import RealmSwift
 
-var user: User?
+var user: User? // Current user, it's global because we need it everywhere in the app
+
+// Hard-coded credentials for the database connection
 let username = "mailnya@yandex.ru"
 let password = "qwe123"
 let serverIP = "188.226.135.29:9080"

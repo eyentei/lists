@@ -9,6 +9,8 @@
 import UIKit
 import RealmSwift
 
+// Single task model
+
 class Entry: Object {
 
     dynamic var text = ""

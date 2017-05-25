@@ -9,6 +9,8 @@
 import UIKit
 import RealmSwift
 
+// User model
+
 class User: Object {
 
     dynamic var email = ""
