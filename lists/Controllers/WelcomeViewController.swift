@@ -15,6 +15,7 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
     var realm: Realm!
+    var localLists: Results<ToDoList>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,8 +60,7 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
                 }
 
                 user = currentUser
-                UserDefaults.standard.set(true, forKey: "isLoggedIn")
-                self.performSegue(withIdentifier: "segueToMain", sender: nil)
+                self.performSegue(withIdentifier: "segueToListsTable", sender: nil)
             }
         })
     }
@@ -77,6 +77,10 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
             errorLabel.text = "Invalid email format"
             return
         }
+        
+        realm = try! Realm()
+        localLists = realm.objects(ToDoList.self)
+        
         setupRealm(completed: { () -> Void in
             DispatchQueue.main.async {
 
@@ -90,8 +94,12 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
                     newUser.password = password
                     self.realm.add(newUser)
                     user = newUser
-                    UserDefaults.standard.set(true, forKey: "isLoggedIn")
-                    self.performSegue(withIdentifier: "segueToMain", sender: nil)
+                    
+                    for list in self.localLists! {
+                        user?.lists.append(self.realm.create(ToDoList.self, value: list, update: false))
+                    }
+                    
+                    self.performSegue(withIdentifier: "segueToListsTable", sender: nil)
                 }
             }
         })
@@ -99,7 +107,7 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func skipButtonClicked(_ sender: UIButton) {
 
-        performSegue(withIdentifier: "segueToMain", sender: nil)
+        performSegue(withIdentifier: "segueToListsTable", sender: nil)
     }
 
     func setupRealm(completed: @escaping () -> Void) {
@@ -109,15 +117,11 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
             guard let user = user else {
                 fatalError(String(describing: error))
             }
-                        let config = Realm.Configuration(syncConfiguration: SyncConfiguration(user: user, realmURL: realmURL),
-                                                         schemaVersion: 1)
-
-            Realm.Configuration.defaultConfiguration = config
-
+            config = Realm.Configuration(syncConfiguration: SyncConfiguration(user: user, realmURL: realmURL), schemaVersion: 1)
+            
             DispatchQueue.main.async {
-                self.realm = try! Realm()
+                self.realm = try! Realm(configuration: config!)
             }
-
             completed()
         }
     }

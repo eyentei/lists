@@ -16,13 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions
                      launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
-        let defaults = UserDefaults.standard
-
-        if defaults.bool(forKey: "isLoggedIn") {
-            self.window?.rootViewController!.performSegue(withIdentifier: "segueToMain", sender: nil)
-        }
-
         return true
     }
 }

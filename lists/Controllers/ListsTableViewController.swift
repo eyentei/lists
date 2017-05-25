@@ -14,7 +14,8 @@ class ListsTableViewController: UITableViewController {
     var realm: Realm!
     var lists: List<ToDoList>?
     var results: Results<ToDoList>?
-
+    @IBOutlet weak var leftBarButton: UIBarButtonItem!
+    
     override func viewDidAppear(_ animated: Bool) {
         if user != nil {
             lists = user!.lists
@@ -32,8 +33,21 @@ class ListsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if user == nil {
+            leftBarButton.title = "Log In"
+        } else {
+            leftBarButton.title = "Settings"
+        }
     }
-
+    
+    @IBAction func leftBarButtonClicked(_ sender: UIBarButtonItem) {
+        if user == nil {
+            navigationController?.popToRootViewController(animated: true)
+        } else {
+            performSegue(withIdentifier: "segueToSettings", sender: nil)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -49,7 +63,12 @@ class ListsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listInfoCell",
                                                  for: indexPath) as! ListInfoTableViewCell
-        realm = try! Realm()
+        if user != nil {
+            realm = try! Realm(configuration: config)
+        } else {
+            realm = try! Realm()
+        }
+        
         if user != nil {
             guard let lists = lists else {
                 return cell
@@ -75,7 +94,13 @@ class ListsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle,
                             forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            realm = try! Realm()
+            
+            if user != nil {
+                realm = try! Realm(configuration: config)
+            } else {
+                realm = try! Realm()
+            }
+            
             try! realm.write {
                 if user != nil {
                     realm.delete(lists![indexPath.row].entries)
@@ -90,11 +115,15 @@ class ListsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "segueToList", sender: indexPath.row)
+        performSegue(withIdentifier: "segueToListEditing", sender: indexPath.row)
     }
 
+    @IBAction func addButtonClicked(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "segueToListInit", sender: nil)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "segueToList" {
+        if segue.identifier == "segueToListEditing" {
             if let LTVC = segue.destination as? ListTableViewController {
                 if sender is Int {
                     if user != nil {

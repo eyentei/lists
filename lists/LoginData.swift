@@ -15,3 +15,4 @@ let password = "qwe123"
 let serverIP = "188.226.135.29:9080"
 let realmURL = URL(string: "realm://\(serverIP)/~/lists")!
 let authServerURL = URL(string: "http://\(serverIP)/")!
+var config: Realm.Configuration!

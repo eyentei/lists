@@ -19,6 +19,7 @@
 		AA5C0F641ED5EA1200B6A978 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA5C0F621ED5EA1200B6A978 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA5C0F671ED5EA1A00B6A978 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA5C0F661ED5EA1A00B6A978 /* RealmSwift.framework */; };
 		AA5C0F681ED5EA1A00B6A978 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA5C0F661ED5EA1A00B6A978 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AA5C0F6A1ED5FC3B00B6A978 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5C0F691ED5FC3B00B6A978 /* SettingsViewController.swift */; };
 		AA74D2D71ECF3722008DF472 /* ListsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74D2D61ECF3722008DF472 /* ListsTableViewController.swift */; };
 		AA74D2D91ECF376E008DF472 /* ListInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74D2D81ECF376E008DF472 /* ListInfoTableViewCell.swift */; };
 		AAB4A06E1E4F49A300D38B90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB4A06D1E4F49A300D38B90 /* AppDelegate.swift */; };
@@ -54,6 +55,7 @@
 		AA4D4F491E71C7800021EA2B /* TextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextTableViewCell.swift; sourceTree = "<group>"; };
 		AA5C0F621ED5EA1200B6A978 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		AA5C0F661ED5EA1A00B6A978 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		AA5C0F691ED5FC3B00B6A978 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		AA74D2D61ECF3722008DF472 /* ListsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListsTableViewController.swift; sourceTree = "<group>"; };
 		AA74D2D81ECF376E008DF472 /* ListInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListInfoTableViewCell.swift; sourceTree = "<group>"; };
 		AAB4A06A1E4F49A300D38B90 /* lists.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lists.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,6 +97,7 @@
 				AA4D4F3D1E70AA2E0021EA2B /* ListTableViewController.swift */,
 				AA74D2D61ECF3722008DF472 /* ListsTableViewController.swift */,
 				AA4D4F261E5F54760021EA2B /* WelcomeViewController.swift */,
+				AA5C0F691ED5FC3B00B6A978 /* SettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				AA4D4F271E5F54760021EA2B /* WelcomeViewController.swift in Sources */,
 				AA1C133C1ECFA68400042B56 /* ListInitViewController.swift in Sources */,
 				AA74D2D71ECF3722008DF472 /* ListsTableViewController.swift in Sources */,
+				AA5C0F6A1ED5FC3B00B6A978 /* SettingsViewController.swift in Sources */,
 				AA4D4F401E70BF570021EA2B /* ToDoList.swift in Sources */,
 				AADD31551E8C6D13008CCDE8 /* User.swift in Sources */,
 			);

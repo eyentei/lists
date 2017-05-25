@@ -68,6 +68,10 @@ UICollectionViewDelegate, UITextFieldDelegate {
         cell.layer.borderWidth = 0
     }
 
+    @IBAction func nextButtonClicked(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "segueToListPopulation", sender: nil)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let LTVC = segue.destination as? ListTableViewController {
             LTVC.icon = selectedIcon
