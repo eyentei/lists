@@ -119,7 +119,9 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
                     user = newUser
                     // If user has created any lists before, they will be added to their account
                     for list in self.localLists! {
-                        user?.lists.append(self.realm.create(ToDoList.self, value: list, update: false))
+                        let list = self.realm.create(ToDoList.self, value: list, update: false)
+                        list.owner = user
+                        user?.lists.append(list)
                     }
                     
                     self.loadIndicator.isHidden = true
@@ -142,16 +144,18 @@ class WelcomeViewController: UIViewController, UITextFieldDelegate {
 
         // Connection to the server database with credentials held in LoginData.swift
         SyncUser.logIn(with: .usernamePassword(username: username, password: password, register: false),
-                       server: authServerURL) { user, error in
-            guard let user = user else {
-                fatalError(String(describing: error))
-            }
-                config = Realm.Configuration(syncConfiguration: SyncConfiguration(user: user, realmURL: realmURL), schemaVersion: 1, migrationBlock: { migration, oldSchemaVersion in })
-            
+                        server: authServerURL) { user, error in
             DispatchQueue.main.async {
+                guard let user = user else {
+                    self.loadIndicator.isHidden = true
+                    self.errorLabel.text = error?.localizedDescription
+                    return
+                }
+                config = Realm.Configuration(syncConfiguration: SyncConfiguration(user: user, realmURL: realmURL),
+                                             schemaVersion: 1, migrationBlock: { migration, oldSchemaVersion in })
                 self.realm = try! Realm(configuration: config!)
+                completed()
             }
-            completed()
         }
     }
 
